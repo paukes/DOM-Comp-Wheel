@@ -1,4 +1,4 @@
-# DOM-Comp-Wheel
-Files for DOM Composition Wheel
-- R File to create DOM composition wheel
-- Test database (.csv) as an example
+
+# README
+
+## DOM Composition Wheel - Associated Code & Composition Wheel Template
