@@ -10,7 +10,7 @@ This repository contains all the code to create the figures and conduct
 the statistical analyses in the manuscript, as well as a template to
 create your own Composition Wheel.
 
-Metadata can be found and hosted by [Wilfrid Laurier University
+Metadata and data files are hosted by [Wilfrid Laurier University
 Dataverse](https://doi.org/10.5683/SP2/NG6D02).
 
 # Files Found Here
