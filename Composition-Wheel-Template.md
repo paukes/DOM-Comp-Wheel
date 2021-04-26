@@ -3,15 +3,27 @@
 
 Here you will find the code to create your own Composition Wheel. Feel
 free to swap out parameters with what you like (just be sure to
-‘normalize’ the values as scale between 0 and 1 based on the max and
-min in the dataset).
+‘normalize’ the values as scale between 0 and 1 based on the max and min
+in the dataset).
 
 ## Load required libraries and dataset
 
 ``` r
-library(ggplot2)
-library(reshape2)
+library(tidyverse)
+```
 
+    ## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+
+    ## v ggplot2 3.3.3     v purrr   0.3.4
+    ## v tibble  3.1.0     v dplyr   1.0.5
+    ## v tidyr   1.1.3     v stringr 1.4.0
+    ## v readr   1.4.0     v forcats 0.5.1
+
+    ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+    ## x dplyr::filter() masks stats::filter()
+    ## x dplyr::lag()    masks stats::lag()
+
+``` r
 #Dataset
 DOM_CW <- read.csv('test_dataset.csv')
 ```
@@ -24,13 +36,23 @@ max of that parameter in the dataset).
 ``` r
 DOM_CW.scaled <- na.omit(DOM_CW)   #remove any 'NA
 
-DOM_CW.scaled$HS.      <- ( (DOM_CW.scaled$HS.)     - min(DOM_CW.scaled$HS.) )     / (max(DOM_CW.scaled$HS.)     - min(DOM_CW.scaled$HS.) )
-DOM_CW.scaled$DOC.DON  <- ( (DOM_CW.scaled$DOC.DON) - min(DOM_CW.scaled$DOC.DON) ) / (max(DOM_CW.scaled$DOC.DON) - min(DOM_CW.scaled$DOC.DON) )
-DOM_CW.scaled$SUVA     <- ( (DOM_CW.scaled$SUVA)    - min(DOM_CW.scaled$SUVA) )    / (max(DOM_CW.scaled$SUVA)    - min(DOM_CW.scaled$SUVA) )
-DOM_CW.scaled$S275     <- ( (DOM_CW.scaled$S275)    - min(DOM_CW.scaled$S275) )    / (max(DOM_CW.scaled$S275)    - min(DOM_CW.scaled$S275) )
-
-#Melt the newly scaled database based on identification parameters:
-DOM_CW.scaled <- melt(DOM_CW.scaled, id.vars = c('Area','Type','Sample','DOC_mg.L'))
+DOM_CW.scaled <- 
+  DOM_CW.scaled %>%
+   transmute(
+     #Keep the columns that help identify the samples
+     Area = Area,
+     Type = Type,
+     Sample = Sample,
+     DOC_mg.L = DOC_mg.L,
+     #Create the Composition Wheel scale
+     HS  =  ( HS. - min(HS.) )   / (max(HS.) - min(HS.) ),
+     C.N =  ( DOC.DON - min(DOC.DON) )   / (max(DOC.DON) - min(DOC.DON) ),
+     SUVA = ( SUVA - min(SUVA) )   / (max(SUVA) - min(SUVA) ),
+     S275 = ( S275 - min(S275) )   / (max(S275) - min(S275) )
+   ) %>%
+  #Re-arrange table so we get one row per composition measure per sample
+  #I would use pivot_longer(), but there is something with dplyr that messes up the CW. Thus, stuck with 'melt' for now
+   reshape2::melt(id.vars = c('Area','Type','Sample','DOC_mg.L')) 
 
 #Create a radial coordinate system with closed points and linear lines
 #Taken from Erwan Le Pennec (2016):
