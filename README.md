@@ -1,10 +1,10 @@
 
 # DOM Composition Wheel - Associated Code & Composition Wheel Template
 
-*Aukes PJK and Schiff SL. 2020. Composition Wheels: Visualizing
+*Aukes PJK and Schiff SL. 2021. Composition Wheels: Visualizing
 dissolved organic matter using common composition metrics across a
-variety of Canadian Ecozones.
-[bioRxiv](https://doi.org/10.1101/2020.12.04.412692)*
+variety of Canadian Ecozones. PLOS ONE. [DOI:
+10.1371/journal.pone.0253972](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0253972)*
 
 This repository contains all the code to create the figures and conduct
 the statistical analyses in the manuscript, as well as a template to
@@ -31,4 +31,4 @@ see how the dataframe is laid out and works with the code.
 
 If you have any further questions or comments, I’d be happy to hear from
 you. You can reach me at:  
-<paukes@wlu.ca>
+<paukes@uwaterloo.ca>
